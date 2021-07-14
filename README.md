@@ -34,9 +34,8 @@
 
 
 ## ✔Application Architecture✔
+ ![image](https://user-images.githubusercontent.com/74306759/125613147-9b624906-e310-4a9b-b147-58b98016836d.png)
 
- 
- 
  
  ## ⚡TEAM _ NEXT LEVEL⚡
   
