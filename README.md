@@ -36,14 +36,15 @@
 
 ### *Backend*
     Framework : Django
-    Image Processing : TensorFlow, Yolov5
 
 ### *DB*
     Image Data : MySQL
  
 ### *Development Environment*
-    Visual studio code, colab
+    Visual studio code
+    Google colab
     Google Cloud Platform
+    Yolo v5
     
 |         Frontend         |      Backend      |         etc          |
 | :----------------------: | :---------------: | :------------------: |
