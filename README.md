@@ -19,7 +19,7 @@
     
     🙈 Hyewon Kang(Team Member) : https://github.com/HyewonKkang
   
-    👩🏻‍🚀Su-A Jang(Team Member) : https://github.com/sua1223
+    👩🏻‍🚀 Su-A Jang(Team Member) : https://github.com/sua1223
     
 
 
