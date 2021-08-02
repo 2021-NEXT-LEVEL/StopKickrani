@@ -2,7 +2,7 @@ import React from 'react';
 
 const Header = () => (
     <div className="header">
-        Stop Kickrani
+        Stop Kickrani hihi
     </div>
 )
 
