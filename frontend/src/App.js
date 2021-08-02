@@ -6,17 +6,20 @@ import Main from './components/main_page/Main';
 import DetailPage from './components/detail_page/DetailPage';
 import NavBar from './components/navbar/Navbar';
 import Footer from './components/footer/Footer';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Demo from './demo';
 // import StatisticsPage from './components/statistics_page/StatisticsPage';
 
 const theme = unstable_createMuiStrictModeTheme();
-
+ReactDOM.render(<Demo />, document.querySelector('#root'));
 function App() {
 
   return (
     <ThemeProvider theme = {theme}>
     <BrowserRouter>
       <NavBar />
-      <div style={{ paddingTop: '30px', minHeight: 'calc(100vh - 80px)' }}>
+      <div style={{ paddingLeft: '250px', minHeight: 'calc(300vh - 80px)' }}>
         <Switch>
           <Route exact path="/" component={Main} />
           <Route exact path="/detail/:videoId" component={DetailPage} />
