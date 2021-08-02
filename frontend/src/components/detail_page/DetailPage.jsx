@@ -13,7 +13,6 @@ const useStyles = makeStyles({
   });
 
 function DetailPage(props) {
-
     const classes = useStyles();
     const defaultVideoId = props.match.params.videoId;
     const variable = { videoId: defaultVideoId };
@@ -46,15 +45,19 @@ function DetailPage(props) {
         return { url, logs };
     }
 
+    const moveToGraph = () => {
+        props.history.push('/graph/' + videoId)
+    }
+
     // const rows = [createData(videoURL, log)];
     const rows = [createData("sample sample sample samples", videoId)];
 
     const ColorButton = withStyles((theme) => ({
         root: {
           color: theme.palette.getContrastText(purple[500]),
-          backgroundColor: purple[500],
+          backgroundColor: '#7558CA',
           '&:hover': {
-            backgroundColor: purple[700],
+            backgroundColor: '#513d8d',
           },
         },
       }))(Button);
@@ -70,11 +73,6 @@ function DetailPage(props) {
         //         alert('비디오 가져오기를 실패했습니다.');
         //     }
         // });
-    }
-
-    // graph 버튼 클릭 시 그래프 페이지로 이동
-    const btnClickMethod = () => {
-        
     }
 
     useEffect(() => {
@@ -126,7 +124,7 @@ function DetailPage(props) {
             </TableContainer>
         </div>
         <div className={styles.ButtonPos}>
-            <ColorButton variant="contained" color="primary" className={classes.graphButton} onClick={btnClickMethod}>
+            <ColorButton variant="contained" color="primary" className={classes.graphButton} onClick={moveToGraph}>
                 GRAPH
             </ColorButton>
         </div>
@@ -134,4 +132,4 @@ function DetailPage(props) {
     )
 }
 
-export default DetailPage
+export default DetailPage;

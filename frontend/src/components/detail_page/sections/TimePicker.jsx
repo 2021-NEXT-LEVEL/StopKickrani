@@ -29,7 +29,7 @@ function TimePicker(props) {
     const result = new Date(year + "/" + month + "/" + date);
 
     handleDateChange(result)
-}
+  }
 
   useEffect(() => {
     setDatePath(props.datePath)
