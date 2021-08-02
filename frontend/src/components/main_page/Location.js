@@ -6,6 +6,9 @@ import Typography from "@material-ui/core/Typography";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import Button from '@material-ui/core/Button';
 import CameraFrontIcon from '@material-ui/icons/CameraFront';
+import logo from '../images/logo.png';
+import logo2 from '../images/logo2.png';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -41,7 +44,7 @@ export default function ComplexGrid() {
               <img
               className={classes.img}
               alt="exit4"
-               src={require("C:\\Users\\길유정\\Desktop\\frontend\\src\\components\\images\\logo2.png").default}
+               src={logo}
               />
             </ButtonBase>
           </Grid>
@@ -76,7 +79,7 @@ export default function ComplexGrid() {
               <img
               className={classes.img}
               alt="exit4"
-               src={require("C:\\Users\\길유정\\Desktop\\frontend\\src\\components\\images\\logo.png").default}
+              src={logo2}
               />
             </ButtonBase>
           </Grid>

@@ -2,33 +2,25 @@ import React from 'react';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { ThemeProvider } from "@material-ui/core/styles";
 import { unstable_createMuiStrictModeTheme } from '@material-ui/core/styles';
-import Main from './components/main_page/Main';
+import Location from './components/main_page/Location';
 import DetailPage from './components/detail_page/DetailPage';
-import NavBar from './components/navbar/Navbar';
+import Navbar from './components/navbar/Navbar';
 import Footer from './components/footer/Footer';
-import React from 'react';
-import ReactDOM from 'react-dom';
-import Demo from './demo';
 // import StatisticsPage from './components/statistics_page/StatisticsPage';
 
-const theme = unstable_createMuiStrictModeTheme();
-ReactDOM.render(<Demo />, document.querySelector('#root'));
 function App() {
-
   return (
-    <ThemeProvider theme = {theme}>
     <BrowserRouter>
-      <NavBar />
+      <Navbar />
       <div style={{ paddingLeft: '250px', minHeight: 'calc(300vh - 80px)' }}>
         <Switch>
-          <Route exact path="/" component={Main} />
+          <Route exact path="/" component={Location} />
           <Route exact path="/detail/:videoId" component={DetailPage} />
           {/* <Route exact path="/statistics" component={StatisticsPage} /> */}
         </Switch>
       </div>
       <Footer />
     </BrowserRouter>
-    </ThemeProvider>
   );
 }
 
