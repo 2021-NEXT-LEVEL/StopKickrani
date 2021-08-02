@@ -5,15 +5,19 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import Button from '@material-ui/core/Button';
-import CameraFrontIcon from '@material-ui/icons/CameraFront';
+import RoomIcon from '@material-ui/icons/Room';
+import VideoCallIcon from '@material-ui/icons/VideoCall';
+import { hi } from "date-fns/locale";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    padding: theme.spacing(3),
+    display: "grid",
+    padding: theme.spacing(2),
+    gridTemplateColumns: "550px 550px"
   },
   paper: {
-    padding: theme.spacing(2),
-    margin: "25px auto",
+    padding: theme.spacing(3),
+    margin: "20px 10px auto",
     maxWidth: 500,
     color: "black",
   },
@@ -31,44 +35,11 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ComplexGrid() {
   const classes = useStyles();
-
-  return (
-    <div className={classes.root}>
-      <Paper variant = "outlined" className={classes.paper}>
-        <Grid container spacing={2}>
-          <Grid item>
-            <ButtonBase className={classes.image}>
-              <img
-              className={classes.img}
-              alt="exit4"
-               src={require("C:\\Users\\길유정\\Desktop\\frontend\\src\\components\\images\\logo2.png").default}
-              />
-            </ButtonBase>
-          </Grid>
-          <Grid item xs={11} sm container>
-            <Grid item xs container direction="column" spacing={2}>
-              <Grid item xs>
-                <Typography gutterBottom variant="subtitle1">
-                  충무로역 4번출구
-                </Typography>
-                <Typography variant="body2" gutterBottom>
-                서울특별시 중구 필동1가 
-                </Typography>
-              </Grid>
-            </Grid>
-            <Grid item>
-            <Button
-        variant="outlined"
-        color="default"
-        startIcon={<CameraFrontIcon />
-        }
-      >
-        Click Here
-      </Button>
-            </Grid>
-          </Grid>
-        </Grid>
-      </Paper>
+  const rendering = () => {
+    const result=[];
+    for(let i=0; i<6;i++)
+    {
+      result.push(<div class="item">
       <Paper className={classes.paper}>
         <Grid container spacing={2}>
           <Grid item>
@@ -76,34 +47,49 @@ export default function ComplexGrid() {
               <img
               className={classes.img}
               alt="exit4"
-               src={require("C:\\Users\\길유정\\Desktop\\frontend\\src\\components\\images\\logo.png").default}
+               src="/images/logo.png"
               />
             </ButtonBase>
           </Grid>
-          <Grid item xs={11} sm container>
+          <Grid item xs={12} sm container>
             <Grid item xs container direction="column" spacing={2}>
               <Grid item xs>
+                
                 <Typography gutterBottom variant="subtitle1">
-                  충무로역 5번출구
+                <RoomIcon style={{verticalAlign: 'middle'}} />&nbsp;신공학관 9층 팬도로시 앞 CCTV
                 </Typography>
                 <Typography variant="body2" gutterBottom>
-                  서울특별시 중구 필동1가 
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;서울특별시 중구 필동1가 
                 </Typography>
+  
               </Grid>
-            </Grid>
-            <Grid item>
+              <Grid item>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              
             <Button
-        variant="contained"
+        variant="outlined"
         color="default"
-        startIcon={<CameraFrontIcon />
+        startIcon={<VideoCallIcon />
         }
       >
-        Click Here
+        View More
       </Button>
+            </Grid>
             </Grid>
           </Grid>
         </Grid>
       </Paper>
+      </div>);
+    }
+    return result;
+  };
+  return (
+    <div className={classes.root}>
+     {rendering()}
     </div>
     
   );
