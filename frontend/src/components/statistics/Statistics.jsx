@@ -23,7 +23,6 @@ function Statistics(props) {
     }
 
     useEffect(() => {
-        console.log(resultId)
         movePage()
     }, [resultId])
 

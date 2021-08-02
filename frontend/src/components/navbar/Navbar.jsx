@@ -12,6 +12,8 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import { BsGeoAlt } from "react-icons/bs";
 import { BsCollectionFill } from "react-icons/bs";
+import { withRouter } from 'react-router-dom';
+import styles from './Navbar.module.css';
 
 const drawerWidth = 300;
 const headerHeight = 100;
@@ -44,15 +46,31 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function ClippedDrawer() {
+function ClippedDrawer(props) {
   const classes = useStyles();
+
+  const convertDate2Id = (dateObject) => {
+    const year = dateObject.getFullYear() + "";
+    const month = dateObject.getMonth() < 9 ? "0" + ((dateObject.getMonth() + 1) + "") : (dateObject.getMonth() + 1) + "";
+    const result = year + month;
+    return result;
+}
+
+  const clickLocation = () => {
+    props.history.push('/');
+  }
+
+  const clickStatistics = () => {
+    const datePath = convertDate2Id(new Date());
+    props.history.push('/statistics/' + datePath);
+  }
 
   return (
     <div className={classes.root}>
       <CssBaseline />
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
-          <img src = '/images/nextlevellogo2.png' width = '106' height = '80' alt='logo' />
+          <img src='/images/nextlevellogo2.png' alt='logo' className={styles.logoImg} onClick={clickLocation}/>
           <Typography variant="h5" noWrap>
             Stop Kickrani
           </Typography>
@@ -68,15 +86,18 @@ function ClippedDrawer() {
         <Toolbar />
         <div className={classes.drawerContainer}>
           <List>
-            {['위치 별 기록 조회', '통합 기록 조회'].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>
-                {index === 0 && <BsGeoAlt />}
-                {index === 1 && <BsCollectionFill />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
+            <ListItem button key={0} onClick={clickLocation}>
+              <ListItemIcon>
+                <BsGeoAlt />
+              </ListItemIcon>
+              <ListItemText primary={"위치 별 기록 조회"} />
+            </ListItem>
+            <ListItem button key={1} onClick={clickStatistics}>
+              <ListItemIcon>
+                <BsCollectionFill />
+              </ListItemIcon>
+              <ListItemText primary={"통합 기록 조회"} />
+            </ListItem>
           </List>
           <Divider />
         </div>
@@ -87,4 +108,4 @@ function ClippedDrawer() {
   );
 }
 
-export default ClippedDrawer;
+export default withRouter(ClippedDrawer);
