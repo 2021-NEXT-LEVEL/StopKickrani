@@ -17,7 +17,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { locaIcon } from "react-icons/bs/BsGeoAlt";
-import { totalIcon } from "react-icons/bs/BsCollectionFill"
+import { totalIcon } from "react-icons/bs/BsCollectionFill";
 
 const drawerWidth = 240;
 
@@ -126,7 +126,7 @@ function ResponsiveDrawer(props) {
               paper: classes.drawerPaper,
             }}
             variant="permanent"
-            open
+            openi
           >
             {drawer}
           </Drawer>

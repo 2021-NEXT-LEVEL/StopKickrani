@@ -4,7 +4,7 @@ import { ThemeProvider } from "@material-ui/core/styles";
 import { unstable_createMuiStrictModeTheme } from '@material-ui/core/styles';
 import Main from './components/main_page/Main';
 import DetailPage from './components/detail_page/DetailPage';
-import NavBar from './components/navbar/NavBar';
+import NavBar from './components/navbar/Navbar';
 import Footer from './components/footer/Footer';
 // import StatisticsPage from './components/statistics_page/StatisticsPage';
 
@@ -15,12 +15,7 @@ function App() {
   return (
     <ThemeProvider theme = {theme}>
     <BrowserRouter>
-      {/* <NavBar /> */}
-      <div className="App">
-        <Navbar>
-        </Navbar>
-      </div>
-
+      <NavBar />
       <div style={{ paddingTop: '30px', minHeight: 'calc(100vh - 80px)' }}>
         <Switch>
           <Route exact path="/" component={Main} />
@@ -28,12 +23,7 @@ function App() {
           {/* <Route exact path="/statistics" component={StatisticsPage} /> */}
         </Switch>
       </div>
-
-      {/* <Footer /> */}
-      <div className="App2">
-        <Footer>
-        </Footer>
-      </div>
+      <Footer />
     </BrowserRouter>
     </ThemeProvider>
   );
