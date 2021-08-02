@@ -6,13 +6,12 @@ import Main from './components/main_page/Main';
 import DetailPage from './components/detail_page/DetailPage';
 import NavBar from './components/navbar/Navbar';
 import Footer from './components/footer/Footer';
-import React from 'react';
 import ReactDOM from 'react-dom';
-import Demo from './demo';
+import Location from './components/main_page/Location';
 // import StatisticsPage from './components/statistics_page/StatisticsPage';
 
 const theme = unstable_createMuiStrictModeTheme();
-ReactDOM.render(<Demo />, document.querySelector('#root'));
+ReactDOM.render(<Location />, document.querySelector('#root'));
 function App() {
 
   return (
