@@ -1,0 +1,14 @@
+<table>
+    <tr>
+        <th> url </th>
+        <th> date </th>
+        <th> lacation </th>
+        {% for video in videos %}
+        <tr>
+            <td>{{video.url}}</td>
+            <td>{{video.date}}</td>
+            <td>{{video.location}}</td>
+        </tr>
+        {%endfor%}
+    </tr>
+</table>
