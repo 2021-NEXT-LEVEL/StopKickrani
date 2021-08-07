@@ -13,7 +13,7 @@ function App() {
   return (
     <BrowserRouter>
       <Navbar />
-      <div style={{paddingLeft: '310px', paddingTop: '70px'}}>
+      <div style={{paddingLeft: '310px'}}>
         <Switch>
           <Route exact path="/" component={Location} />
           <Route exact path="/detail/:videoId" component={DetailPage} />
