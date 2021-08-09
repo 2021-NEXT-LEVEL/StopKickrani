@@ -54,6 +54,7 @@ function DetailPage(props) {
 
     const ColorButton = withStyles((theme) => ({
         root: {
+          marginBottom: '10px',
           color: theme.palette.getContrastText(purple[500]),
           backgroundColor: '#7558CA',
           '&:hover': {
