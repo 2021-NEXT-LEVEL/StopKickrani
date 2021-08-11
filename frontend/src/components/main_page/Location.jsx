@@ -52,7 +52,7 @@ function ComplexGrid(props) {
   const rendering = () => {
     const result = [];
     for (let i = 0; i < 6; i++) {
-      result.push(<div class="item">
+      result.push(<div className="item">
         <Paper className={classes.paper}>
           <Grid container spacing={2}>
             <Grid item>

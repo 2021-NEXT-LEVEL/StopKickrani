@@ -7,7 +7,7 @@ import DetailPage from './components/detail_page/DetailPage';
 import GraphPage from './components/graph_page/GraphPage';
 import Navbar from './components/navbar/Navbar';
 import Footer from './components/footer/Footer';
-import Statistics from './components/statistics/Statistics';
+// import Statistics from './components/statistics/Statistics';
 
 function App() {
   return (
@@ -18,7 +18,7 @@ function App() {
           <Route exact path="/" component={Location} />
           <Route exact path="/detail/:videoId" component={DetailPage} />
           <Route exact path="/graph/:videoId" component={GraphPage} />
-          <Route exact path="/statistics/:resultId" component={Statistics} />
+          {/* <Route exact path="/statistics/:resultId" component={Statistics} /> */}
         </Switch>
       </div>
       <Footer />
