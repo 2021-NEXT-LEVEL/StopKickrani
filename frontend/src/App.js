@@ -6,7 +6,6 @@ import Location from './components/main_page/Location';
 import DetailPage from './components/detail_page/DetailPage';
 import GraphPage from './components/graph_page/GraphPage';
 import Navbar from './components/navbar/Navbar';
-import Footer from './components/footer/Footer';
 import Statistics from './components/statistics/Statistics';
 
 function App() {
@@ -21,7 +20,6 @@ function App() {
           <Route exact path="/statistics/:resultId" component={Statistics} />
         </Switch>
       </div>
-      <Footer />
     </BrowserRouter>
   );
 }
