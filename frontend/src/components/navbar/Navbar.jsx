@@ -59,6 +59,9 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     padding: theme.spacing(7),  // drawer 안 내용 top padding
   },
+  TotalTitle: {
+    
+  }
 }));
 
 function ClippedDrawer(props) {
@@ -93,8 +96,8 @@ function ClippedDrawer(props) {
               onClick={clickLocation}
             />
           </div>
-          <Typography variant="h5" noWrap>
-            Stop Kickrani
+          <Typography variant="h4" style={{color: '#ffffff'}} noWrap >
+              Stop Kickrani
           </Typography>
         </Toolbar>
       </AppBar>
@@ -113,7 +116,7 @@ function ClippedDrawer(props) {
             </Typography>
           </List>
         </div>
-        <div className={classes.drawerContainer1}>
+        <div className={classes.TotalTitle}>
           <List>
             <ListItem button key={0} onClick={clickLocation}>
               <ListItemIcon>
