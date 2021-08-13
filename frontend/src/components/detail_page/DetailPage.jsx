@@ -20,9 +20,7 @@ function DetailPage(props) {
 
     const [videoId, setVideoId] = useState(defaultVideoId);
     const [loc, setLoc] = useState(defaultLoc);
-    const [videoURL, setVideoURL] = useState("");
-    const [video, setVideo] = useState();
-    const [log, setLog] = useState([]);
+    const [videos, setVideos] = useState();
 
     const sample_log = [[videoId.substring(0, 4) + '/' + videoId.substring(4, 6) + '/' + videoId.substring(6, 8) + " 10:41:10 non-helmet 2"],
     [videoId.substring(0, 4) + '/' + videoId.substring(4, 6) + '/' + videoId.substring(6, 8) + " 10:41:11 non-helmet 2"]]
@@ -65,24 +63,17 @@ function DetailPage(props) {
         },
     }))(Button);
 
-    // DB에 저장된 날짜별 비디오 주소 가져오기 (using youtube api)
-    const getVideo = () => {
-        // Axios.get('/api/video/getVideos', variable)
-        // .then(response => {
-        //     if(response.data.success) {
-        //         console.log(response.data);
-        //         setVideo(response.data.videos);
-        //     } else {
-        //         alert('비디오 가져오기를 실패했습니다.');
-        //     }
-        // });
-    }
-
     useEffect(() => {
         movePage()
-        // if (!isNaN(videoId)) {
-        //     video && getVideo()
-        // } 
+
+        // DB에 저장된 날짜별 비디오 정보 가져오기
+        // fetch('http://127.0.0.1:8000/api/')
+        //     .then(response => response.json())
+        //     .then(response => {
+        //         console.log(response)
+        //         setVideos(response)
+        //     }
+        //     )
 
 
     }, [videoId]);
