@@ -4,7 +4,7 @@ import { ResponsiveLine } from "@nivo/line";
 const MyResponsiveLine = ({ data }) => (
   <ResponsiveLine
     data={data}
-    margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
+    margin={{ top: 10, right: 70, bottom: 70, left: 60 }}
     xScale={{ type: "point" }}
     yScale={{ type: "linear", min:0, stacked: true, min: "auto", max: "auto" }}
     yFormat=">-.2f"
@@ -39,17 +39,17 @@ const MyResponsiveLine = ({ data }) => (
     useMesh={true}
     legends={[
       {
-        anchor: "bottom-right",
-        direction: "column",
+        anchor: "bottom",
+        direction: "row",
         justify: false,
-        translateX: 100,
-        translateY: 0,
-        itemsSpacing: 0,
+        translateX: 0,
+        translateY: 70,
+        itemsSpacing: 50,
         itemDirection: "left-to-right",
         itemWidth: 80,
         itemHeight: 20,
-        itemOpacity: 0.75,
-        symbolSize: 12,
+        itemOpacity: 1,
+        symbolSize: 20,
         symbolShape: "circle",
         symbolBorderColor: "rgba(0, 0, 0, .5)",
         effects: [
