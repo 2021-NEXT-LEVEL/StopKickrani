@@ -18,6 +18,7 @@ const useStyles = makeStyles({
     },
   });
 
+
 const DrawGraph = () => (
   <div style={styles}>
     {/*<h1>Nivo basic demo</h1>*/}
@@ -31,27 +32,29 @@ const DrawGraph = () => (
 
 function GraphPage(props) {
 
-    const classes = useStyles();
+  const classes = useStyles();
 
-    const [videoId, setVideoId] = useState(props.match.params.videoId)
+  const [loc, setLoc] = useState(props.match.params.loc)
+  const [videoId, setVideoId] = useState(props.match.params.videoId)
 
-    const moveToDetail = () => {
-        props.history.push('/detail/' + videoId)
-    }
+  const moveToDetail = () => {
+    props.history.push('/detail/' + loc + '/' + videoId)
+  }
 
-    const ColorButton = withStyles((theme) => ({
-        root: {
-          marginBottom: '10px',
-          color: theme.palette.getContrastText(purple[500]),
-          backgroundColor: '#7558CA',
-          '&:hover': {
-            backgroundColor: '#513d8d',
-          },
-        },
-      }))(Button);
+  const ColorButton = withStyles((theme) => ({
+    root: {
+      marginBottom: '10px',
+      color: theme.palette.getContrastText(purple[500]),
+      backgroundColor: '#7558CA',
+      '&:hover': {
+        backgroundColor: '#513d8d',
+      },
+    },
+  }))(Button);
 
-    useEffect(() => {
-    })
+  
+  useEffect(() => {
+  })
 
     return (
         <>

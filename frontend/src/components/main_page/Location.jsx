@@ -42,11 +42,11 @@ function ComplexGrid(props) {
     const date = dateObject.getDate() < 9 ? "0" + (dateObject.getDate() + "") : dateObject.getDate() + "";
     const result = year + month + date;
     return result
-}
+  }
 
-  const clickViewMore = () => {
+  const clickViewMore = (loc) => {
     const datePath = convertDate2Id(new Date());
-    props.history.push('/detail/' + datePath);
+    props.history.push('/detail/' + loc + '/' + datePath);
   }
 
   const rendering = () => {
@@ -88,7 +88,7 @@ function ComplexGrid(props) {
                     color="default"
                     startIcon={<VideoCallIcon />
                     }
-                    onClick={clickViewMore}
+                    onClick={() => clickViewMore(i)}
                   >
                     View More
                   </Button>

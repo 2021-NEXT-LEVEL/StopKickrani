@@ -15,8 +15,8 @@ function App() {
       <div style={{paddingLeft: '310px'}}>
         <Switch>
           <Route exact path="/" component={Location} />
-          <Route exact path="/detail/:videoId" component={DetailPage} />
-          <Route exact path="/graph/:videoId" component={GraphPage} />
+          <Route exact path="/detail/:loc/:videoId" component={DetailPage} />
+          <Route exact path="/graph/:loc/:videoId" component={GraphPage} />
           <Route exact path="/statistics/:resultId" component={Statistics} />
         </Switch>
       </div>
