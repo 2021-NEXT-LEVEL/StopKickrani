@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
@@ -36,6 +36,18 @@ const useStyles = makeStyles((theme) => ({
 function ComplexGrid(props) {
   const classes = useStyles();
 
+  const [videos, setVideos] = useState([])
+
+  useEffect(() => {
+    fetch('http://127.0.0.1:8000/')
+      .then(response => response.json())
+      .then(response => {
+        console.log(response)
+        setVideos(response)
+      }
+      )
+  }, [])
+
   const convertDate2Id = (dateObject) => {
     const year = dateObject.getFullYear() + "";
     const month = dateObject.getMonth() < 9 ? "0" + ((dateObject.getMonth() + 1) + "") : (dateObject.getMonth() + 1) + "";
@@ -51,7 +63,7 @@ function ComplexGrid(props) {
 
   const rendering = () => {
     const result = [];
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < videos.length; i++) {
       result.push(<div class="item">
         <Paper className={classes.paper}>
           <Grid container spacing={2}>
@@ -69,10 +81,10 @@ function ComplexGrid(props) {
                 <Grid item xs>
 
                   <Typography gutterBottom variant="subtitle1">
-                    <RoomIcon style={{ verticalAlign: 'middle' }} />&nbsp;신공학관 9층 팬도로시 앞 CCTV
+                    <RoomIcon style={{ verticalAlign: 'middle' }} />&nbsp; {videos[i].location}
                   </Typography>
                   <Typography variant="body2" gutterBottom>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;서울특별시 중구 필동1가
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 서울특별시 중구 필동1가
                   </Typography>
 
                 </Grid>

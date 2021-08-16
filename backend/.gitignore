@@ -3,3 +3,5 @@
 # dependencies
 /venv
 *.pyc
+/migrations
+db.sqlite3
