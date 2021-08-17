@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import styles from './Statistics.module.css';
 import MonthYearPicker from './sections/MonthYearPicker';
+import ItemList from './sections/ItemList';
 
 function Statistics(props) {
     const defaultResultId = props.match.params.resultId;
@@ -8,9 +9,7 @@ function Statistics(props) {
     const [resultId, setResultId] = useState(defaultResultId);
 
     const convertDate2Id = (dateObject) => {
-        const year = dateObject.getFullYear() + "";
-        const month = dateObject.getMonth() < 9 ? "0" + ((dateObject.getMonth() + 1) + "") : (dateObject.getMonth() + 1) + "";
-        const result = year + month;
+        const result = dateObject.substring(0, 4) + dateObject.substring(5, 7)
         setResultId(result)
     }
 
@@ -18,9 +17,11 @@ function Statistics(props) {
         convertDate2Id(selectedDate);
     } 
 
+
     const movePage = () => {
         props.history.push('/statistics/' + resultId);
     }
+
 
     useEffect(() => {
         movePage()
@@ -29,10 +30,9 @@ function Statistics(props) {
     return (
         <div className={styles.container}>
             <MonthYearPicker getSelectedDate={getSelectedDate} datePath={resultId}/>
-
-            {/* 월별 통계 그래프 */}
-
+            <ItemList />
         </div>
+        
     )
 }
 

@@ -54,15 +54,16 @@ function ComplexGrid(props) {
     const date = dateObject.getDate() < 9 ? "0" + (dateObject.getDate() + "") : dateObject.getDate() + "";
     const result = year + month + date;
     return result
-}
+  }
 
-  const clickViewMore = () => {
+  const clickViewMore = (loc) => {
     const datePath = convertDate2Id(new Date());
-    props.history.push('/detail/' + datePath);
+    props.history.push('/detail/' + loc + '/' + datePath);
   }
 
   const rendering = () => {
     const result = [];
+    
     for (let i = 0; i < videos.length; i++) {
       result.push(<div class="item">
         <Paper className={classes.paper}>
@@ -100,7 +101,7 @@ function ComplexGrid(props) {
                     color="default"
                     startIcon={<VideoCallIcon />
                     }
-                    onClick={clickViewMore}
+                    onClick={() => clickViewMore(i)}
                   >
                     View More
                   </Button>

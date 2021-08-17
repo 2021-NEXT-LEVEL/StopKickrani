@@ -1,5 +1,6 @@
 .container {
     box-shadow: 4px 4px 6px -1px rgba(160,160,160,0.82);
     text-align: center;
-    height: 400px; 
+    height: 500px; 
+    padding-top: 20px;
 }

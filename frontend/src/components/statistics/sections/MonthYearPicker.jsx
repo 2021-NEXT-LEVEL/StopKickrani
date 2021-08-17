@@ -1,53 +1,61 @@
 import React, { useState, useEffect } from 'react';
-import TextField from "@material-ui/core/TextField";
-import DatePicker from "@material-ui/lab/DatePicker";
-import AdapterDateFns from '@material-ui/lab/AdapterDateFns';
-import LocalizationProvider from '@material-ui/lab/LocalizationProvider';
+import { DatePicker } from 'antd';
+import moment from 'moment';
+import "antd/dist/antd.css";
 
 function MonthYearPicker(props) {
 
-  const [datePath, setDatePath] = useState("");
-  const [value, setValue] = useState(new Date());
+    const monthFormat = 'YYYY/MM';
 
-  const sendDate = (date) => {
-    props.getSelectedDate(date);
-  }
+    const [datePath, setDatePath] = useState("");
+    const [selectedDate, setSelectedDate] = useState("");
 
-  const handleDateChange = (newValue) => {
-    setValue(newValue);
-    sendDate(newValue);
-  }
+    const sendDate = (date) => {
+        props.getSelectedDate(date);
+      }
+    
+      const handleDateChange = (date, dateString) => {
 
-  const convertId2Date = (dateObject) => {
-    const year = dateObject.substring(0, 4)
-    const month = dateObject.substring(4, 6)
-    const result = new Date(year + "/" + month);
+        setSelectedDate(dateString);
+        sendDate(dateString)
+      };
 
-    handleDateChange(result)
-  }
+      const convertDate2Id = (dateObject) => {
+        const year = dateObject.getFullYear() + "";
+        const month = dateObject.getMonth() < 9 ? "0" + ((dateObject.getMonth() + 1) + "") : (dateObject.getMonth() + 1) + "";
+        const result = year + '/' + month;
 
-  useEffect(() => {
-    setDatePath(props.datePath)
-    convertId2Date(props.datePath)
+        return result
+    }
+    
+      const convertId2Date = (dateObject) => {
+        const year = dateObject.substring(0, 4)
+        const month = dateObject.substring(4, 6)
+        const result = year + "/" + month;
 
-  }, [datePath])
+        handleDateChange(dateObject, result)
+      }
 
-  return (
-    <LocalizationProvider dateAdapter={AdapterDateFns}>
-        <DatePicker
-          views={["year", "month"]}
-          label="Year and Month"
-          minDate={new Date("2012-03-01")}
-          maxDate={new Date()}
-          value={value}
-          onChange={(newValue) => {
-            handleDateChange(newValue);
-            setValue(newValue);
-          }}
-          renderInput={(params) => <TextField {...params} helperText={null} />}
-        />
-    </LocalizationProvider>
-  );
+      useEffect(() => {
+        let date = convertDate2Id(new Date())
+        setSelectedDate(date)
+      }, [])
+    
+      useEffect(() => {
+        setDatePath(props.datePath)
+        convertId2Date(props.datePath)
+      }, [datePath])
+
+    return (
+        <div>
+            <DatePicker 
+            value={moment(selectedDate, monthFormat)}
+            // value={moment(selectedDate, monthFormat)}
+            format={monthFormat} 
+            picker="month" 
+            onChange={handleDateChange} />
+        </div>
+    )
 }
 
-export default MonthYearPicker;
+export default MonthYearPicker

@@ -6,7 +6,6 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -49,10 +48,20 @@ const useStyles = makeStyles((theme) => ({
   drawerContainer1: {     // 기록 조회 안 세부 category
     overflow: 'auto',
   },
+  drawerContainer2: {
+    paddingTop: 200,
+    paddingLeft: 15,
+    alignContent: 'center',
+    alignItems: 'center',
+    overflow: 'auto',
+  },
   content: {
     flexGrow: 1,
     padding: theme.spacing(7),  // drawer 안 내용 top padding
   },
+  TotalTitle: {
+    
+  }
 }));
 
 function ClippedDrawer(props) {
@@ -87,8 +96,8 @@ function ClippedDrawer(props) {
               onClick={clickLocation}
             />
           </div>
-          <Typography variant="h5" noWrap>
-            Stop Kickrani
+          <Typography variant="h4" style={{color: '#ffffff'}} noWrap >
+              Stop Kickrani
           </Typography>
         </Toolbar>
       </AppBar>
@@ -107,7 +116,7 @@ function ClippedDrawer(props) {
             </Typography>
           </List>
         </div>
-        <div className={classes.drawerContainer1}>
+        <div className={classes.TotalTitle}>
           <List>
             <ListItem button key={0} onClick={clickLocation}>
               <ListItemIcon>
@@ -122,7 +131,10 @@ function ClippedDrawer(props) {
               <ListItemText primary={"통합 기록 조회"} style={{color: '#c0c1c5'}}/>
             </ListItem>
           </List>
-          <Divider style={{backgroundColor: '#c0c1c5'}} />
+        </div>
+        <div className={classes.drawerContainer2}>
+        <p style={{color: '#c0c1c5'}}>
+        ⚡Contact Us⚡<br/><br/>메일주소: gilyujung@gmail.com<br/><br/>github 주소: https://github.com/2021-NEXT-LEVEL/StopKickrani<br/><br/>ⓒNEXT-LEVEL<br/></p>
         </div>
       </Drawer>
       <main className={classes.content}>
