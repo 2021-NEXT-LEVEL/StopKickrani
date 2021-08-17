@@ -5,6 +5,7 @@ import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow
 import { createTheme, withStyles, makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import { purple } from '@material-ui/core/colors';
+import { USER_SERVER } from '../../Config';
 
 const useStyles = makeStyles({
     table: {
@@ -67,13 +68,13 @@ function DetailPage(props) {
         movePage()
 
         // DB에 저장된 날짜별 비디오 정보 가져오기
-        // fetch('http://127.0.0.1:8000/api/')
-        //     .then(response => response.json())
-        //     .then(response => {
-        //         console.log(response)
-        //         setVideos(response)
-        //     }
-        //     )
+        fetch(`${USER_SERVER}/detail/${loc}/${videoId}`)
+            .then(response => response.json())
+            .then(response => {
+                console.log(response)
+                setVideos(response)
+            }
+            )
 
 
     }, [videoId]);

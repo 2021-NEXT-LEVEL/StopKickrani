@@ -7,6 +7,7 @@ import ButtonBase from "@material-ui/core/ButtonBase";
 import Button from '@material-ui/core/Button';
 import RoomIcon from '@material-ui/icons/Room';
 import VideoCallIcon from '@material-ui/icons/VideoCall';
+import { USER_SERVER } from '../../Config';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,7 +40,8 @@ function ComplexGrid(props) {
   const [videos, setVideos] = useState([])
 
   useEffect(() => {
-    fetch('http://127.0.0.1:8000/')
+
+    fetch(`${USER_SERVER}`)
       .then(response => response.json())
       .then(response => {
         console.log(response)
@@ -63,9 +65,9 @@ function ComplexGrid(props) {
 
   const rendering = () => {
     const result = [];
-    
+
     for (let i = 0; i < videos.length; i++) {
-      result.push(<div class="item">
+      result.push(<div className="item">
         <Paper className={classes.paper}>
           <Grid container spacing={2}>
             <Grid item>
