@@ -17,4 +17,5 @@ media
 # dependencies
 /venv
 *.pyc
-migrations/
+/migrations
+db.sqlite3
