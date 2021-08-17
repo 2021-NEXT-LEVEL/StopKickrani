@@ -8,7 +8,6 @@ class VideoSerializer(serializers.ModelSerializer):
             'url',
             'date',
             'location',
-            'graph',
         )
 
 class ResultSerializer(serializers.ModelSerializer):
@@ -17,5 +16,7 @@ class ResultSerializer(serializers.ModelSerializer):
         fields = (
             'rid',
             'log',
-            'class_field',
+            'value',
+            'date',
+            'location',
         )

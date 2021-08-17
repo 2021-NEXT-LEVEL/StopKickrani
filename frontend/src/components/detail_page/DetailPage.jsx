@@ -5,7 +5,7 @@ import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow
 import { createTheme, withStyles, makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import { purple } from '@material-ui/core/colors';
-import { USER_SERVER } from '../../Config';
+import { USER_SERVER, YOUTUBE_URL } from '../../Config';
 
 const useStyles = makeStyles({
     table: {
@@ -17,14 +17,11 @@ function DetailPage(props) {
     const classes = useStyles();
     const defaultVideoId = props.match.params.videoId;
     const defaultLoc = props.match.params.loc;
-    const variable = { videoId: defaultVideoId };
 
     const [videoId, setVideoId] = useState(defaultVideoId);
     const [loc, setLoc] = useState(defaultLoc);
-    const [videos, setVideos] = useState();
-
-    const sample_log = [[videoId.substring(0, 4) + '/' + videoId.substring(4, 6) + '/' + videoId.substring(6, 8) + " 10:41:10 non-helmet 2"],
-    [videoId.substring(0, 4) + '/' + videoId.substring(4, 6) + '/' + videoId.substring(6, 8) + " 10:41:11 non-helmet 2"]]
+    const [videoURL, setVideoURL] = useState('');
+    const [infos, setInfos] = useState([]);
 
     const convertDate2Id = (dateObject) => {
         const year = dateObject.getFullYear() + "";
@@ -46,12 +43,15 @@ function DetailPage(props) {
         return { url, logs };
     }
 
+    const createLogData = (log, value) => {
+        return (videoId.substring(0, 4) + '/' + videoId.substring(4, 6) + '/' + videoId.substring(6, 8) + ' ' + log + ' ' + value);
+    }
+
     const moveToGraph = () => {
         props.history.push('/graph/' + loc + '/' + videoId)
     }
 
-    // const rows = [createData(videoURL, log)];
-    const rows = [createData("sample sample sample samples", videoId)];
+    const rows = [createData(videoURL, videoId)];
 
     const ColorButton = withStyles((theme) => ({
         root: {
@@ -67,15 +67,31 @@ function DetailPage(props) {
     useEffect(() => {
         movePage()
 
-        // DB에 저장된 날짜별 비디오 정보 가져오기
+        // get video URL
+        fetch(`${USER_SERVER}/video/${loc}/${videoId}`)
+            .then(response => response.json())
+            .then(response => {
+                console.log(response)
+                let urls = response[0].url.split('watch?v=')
+                setVideoURL(YOUTUBE_URL + '/' + urls[1])
+            }
+            )
+            .catch((err) => {
+                console.log(err)
+            })
+
+        // get video info (log, value)
         fetch(`${USER_SERVER}/detail/${loc}/${videoId}`)
             .then(response => response.json())
             .then(response => {
                 console.log(response)
-                setVideos(response)
-            }
-            )
-
+                const log_data = []
+                response.map((item) => log_data.push(createLogData(item.log, item.value)))
+                setInfos(log_data)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
 
     }, [videoId]);
 
@@ -101,7 +117,7 @@ function DetailPage(props) {
                                                 // height="315px"
                                                 width="793px"
                                                 height="446px"
-                                                src="https://www.youtube.com/embed/z0KqM3oAnus"
+                                                src={videoURL}
                                                 frameBorder="0"
                                                 allow="autoplay; encrypted-media; gyroscope;"
                                                 allowFullScreen
@@ -110,7 +126,7 @@ function DetailPage(props) {
                                         </div>
                                     </TableCell>
                                     <TableCell>
-                                        {sample_log.map((log) => <li key={log}>{log}</li>)}
+                                        {infos.map((log) => <li key={log}>{log}</li>)}
                                     </TableCell>
                                 </TableRow>
                             ))}

@@ -46,8 +46,10 @@ function ComplexGrid(props) {
       .then(response => {
         console.log(response)
         setVideos(response)
-      }
-      )
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   }, [])
 
   const convertDate2Id = (dateObject) => {
