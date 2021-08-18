@@ -20,7 +20,8 @@ function DetailPage(props) {
 
     const [videoId, setVideoId] = useState(defaultVideoId);
     const [loc, setLoc] = useState(defaultLoc);
-    const [videoURL, setVideoURL] = useState('');
+    const [videoURL, setVideoURL] = useState();
+    const [videoUniqueURL, setVideoUniqueURL] = useState();
     const [infos, setInfos] = useState([]); // db에서 받아온 log, value
     const [timeState, setTimeState] = useState(0.0);
 
@@ -74,6 +75,7 @@ function DetailPage(props) {
         console.log(result)
     }
 
+
     useEffect(() => {
         movePage()
 
@@ -83,7 +85,8 @@ function DetailPage(props) {
             .then(response => {
                 console.log(response)
                 let urls = response[0].url.split('watch?v=')
-                setVideoURL(YOUTUBE_URL + '/' + urls[1] + '?autoplay=1&modestbranding=1&rel=0')
+                setVideoURL(YOUTUBE_URL + '/' + urls[1] + '?autoplay=1&modestbranding=1&rel=0&autohide=1&rel=0&controls=0&iv_load_policy=3&disablekb=1')
+                setVideoUniqueURL(urls[1])
             }
             )
             .catch((err) => {
@@ -124,16 +127,19 @@ function DetailPage(props) {
                                 <TableRow key={row.url}>
                                     <TableCell component="th" scope="row">
                                         <div className="iframeBox">
-                                            <iframe
-                                                id="player"
-                                                width="793px"
-                                                height="446px"
-                                                src={`${videoURL}&start=${timeState}`}
-                                                frameBorder="0"
-                                                allow="autoplay; encrypted-media; gyroscope;"
-                                                allowFullScreen
-                                                scrolling="no"
-                                            />
+                                            {videoURL &&
+
+                                                <iframe
+                                                    id="player"
+                                                    width="793px"
+                                                    height="446px"
+                                                    src={`${videoURL}&start=${timeState}`}
+                                                    frameBorder="0"
+                                                    allow="autoplay; encrypted-media; gyroscope;"
+                                                    allowFullScreen
+                                                    scrolling="no"
+                                                />
+                                            }
                                         </div>
                                     </TableCell>
                                     <TableCell>

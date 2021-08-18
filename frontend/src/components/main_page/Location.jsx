@@ -37,15 +37,20 @@ const useStyles = makeStyles((theme) => ({
 function ComplexGrid(props) {
   const classes = useStyles();
 
-  const [videos, setVideos] = useState([])
+  const [locations, setLocations] = useState([])
 
   useEffect(() => {
 
     fetch(`${USER_SERVER}`)
       .then(response => response.json())
       .then(response => {
-        console.log(response)
-        setVideos(response)
+        let datas = []
+        response.forEach((item) => {
+          if (!datas.includes(item.location)) {
+            datas.push(item.location)
+          }
+        })
+        setLocations(datas)
       })
       .catch((err) => {
         console.log(err)
@@ -67,8 +72,7 @@ function ComplexGrid(props) {
 
   const rendering = () => {
     const result = [];
-
-    for (let i = 0; i < videos.length; i++) {
+    for (let i = 0; i < locations.length; i++) {
       result.push(<div className="item">
         <Paper className={classes.paper}>
           <Grid container spacing={2}>
@@ -86,7 +90,7 @@ function ComplexGrid(props) {
                 <Grid item xs>
 
                   <Typography gutterBottom variant="subtitle1">
-                    <RoomIcon style={{ verticalAlign: 'middle' }} />&nbsp; {videos[i].location}
+                    <RoomIcon style={{ verticalAlign: 'middle' }} />&nbsp; {locations[i]}
                   </Typography>
                   <Typography variant="body2" gutterBottom>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 서울특별시 중구 필동1가
