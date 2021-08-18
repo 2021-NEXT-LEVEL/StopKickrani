@@ -30,7 +30,6 @@ const DrawGraph = () => (
   </div>
 );
 
-
 function GraphPage(props) {
 
   const classes = useStyles();
