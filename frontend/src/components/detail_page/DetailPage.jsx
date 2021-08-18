@@ -21,7 +21,8 @@ function DetailPage(props) {
     const [videoId, setVideoId] = useState(defaultVideoId);
     const [loc, setLoc] = useState(defaultLoc);
     const [videoURL, setVideoURL] = useState('');
-    const [infos, setInfos] = useState([]);
+    const [infos, setInfos] = useState([]); // db에서 받아온 log, value
+    const [timeState, setTimeState] = useState(0.0);
 
     const convertDate2Id = (dateObject) => {
         const year = dateObject.getFullYear() + "";
@@ -64,6 +65,15 @@ function DetailPage(props) {
         },
     }))(Button);
 
+    const setStartTime = (time) => {
+        const hour = parseInt(time.substring(0, 2))
+        const minutes = parseInt(time.substring(3, 5))
+        const seconds = parseInt(time.substring(6, 8))
+        const result = hour * 3600 + minutes * 60 + seconds
+        setTimeState(result)
+        console.log(result)
+    }
+
     useEffect(() => {
         movePage()
 
@@ -73,7 +83,7 @@ function DetailPage(props) {
             .then(response => {
                 console.log(response)
                 let urls = response[0].url.split('watch?v=')
-                setVideoURL(YOUTUBE_URL + '/' + urls[1])
+                setVideoURL(YOUTUBE_URL + '/' + urls[1] + '?autoplay=1&modestbranding=1&rel=0')
             }
             )
             .catch((err) => {
@@ -85,9 +95,11 @@ function DetailPage(props) {
             .then(response => response.json())
             .then(response => {
                 console.log(response)
-                const log_data = []
-                response.map((item) => log_data.push(createLogData(item.log, item.value)))
-                setInfos(log_data)
+                const info_data = []
+                response.map((item) => {
+                    info_data.push([item.log, item.value])
+                })
+                setInfos(info_data)
             })
             .catch((err) => {
                 console.log(err)
@@ -113,11 +125,10 @@ function DetailPage(props) {
                                     <TableCell component="th" scope="row">
                                         <div className="iframeBox">
                                             <iframe
-                                                // width="560px"
-                                                // height="315px"
+                                                id="player"
                                                 width="793px"
                                                 height="446px"
-                                                src={videoURL}
+                                                src={`${videoURL}&start=${timeState}`}
                                                 frameBorder="0"
                                                 allow="autoplay; encrypted-media; gyroscope;"
                                                 allowFullScreen
@@ -126,7 +137,15 @@ function DetailPage(props) {
                                         </div>
                                     </TableCell>
                                     <TableCell>
-                                        {infos.map((log) => <li key={log}>{log}</li>)}
+                                        {infos.map((data) =>
+                                            <li key={data[0]} onClick={() => setStartTime(data[0])}>
+                                                <div className={styles.log_font}>
+                                                    {videoId.substring(0, 4) + '/' + videoId.substring(4, 6) + '/' + videoId.substring(6, 8) + ' '}
+                                                    &emsp;&emsp;<font>{data[0]}</font>
+                                                    &emsp;&emsp;{data[1]}
+                                                </div>
+                                            </li>
+                                        )}
                                     </TableCell>
                                 </TableRow>
                             ))}

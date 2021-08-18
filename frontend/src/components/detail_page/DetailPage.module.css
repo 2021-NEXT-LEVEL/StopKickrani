@@ -1,5 +1,5 @@
 .container {
-    box-shadow: 4px 4px 6px -1px rgba(160,160,160,0.82);
+    box-shadow: 4px 4px 6px -1px rgba(160, 160, 160, 0.82);
     text-align: center;
 }
 
@@ -7,6 +7,11 @@
     margin-top: 20px;
     margin-right: 20px;
     float: right;
+}
+
+font {
+    color: #00739d;
+    cursor: pointer;
 }
 
 b {
@@ -20,9 +25,9 @@ li {
 .iframeBox {
     position: relative;
     width: 100%;
-	padding-bottom: 56.25%;
-	padding-top: 30px;
-	height: 0;
+    padding-bottom: 56.25%;
+    padding-top: 30px;
+    height: 0;
 }
 
 .iframeBox iframe {
@@ -34,4 +39,8 @@ li {
 .result {
     padding-top: 30px;
     width: 700px;
+}
+
+.log_font {
+    font-size: 16px;
 }
