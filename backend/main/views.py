@@ -1,23 +1,24 @@
 from django.db.models.query import QuerySet
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from rest_framework import generics
 from django.http import JsonResponse
 from rest_framework.response import Response
+from django.http import HttpResponse
 
 from .models import Video, DetectResult
 from .serializers import VideoSerializer, ResultSerializer
 
 import datetime
-import pandas
+import detect
 
 location_dicts = {
-            0:"충무로역 1번출구",
-            1:"충무로역 2번출구",
-            2:"동국대학교 명진관 앞"
+            0:"동국대학교 팔정도",
+            1:"동국대학교 상록원",
+            2:"동국대학교 신공학관 9층",
+            3:"동국대학교 본관 앞"
         }
 
 
-# Create your views here.
 class ListVideo(generics.ListCreateAPIView):
     videos = Video.objects.all()
     serializer_class = VideoSerializer
@@ -46,8 +47,12 @@ class detailVideo(generics.ListCreateAPIView):
         convert_date = datetime.datetime.strptime(url_date, "%Y%m%d").date()
 
         row = DetectResult.objects.filter(date = convert_date, location = location_dicts[url_loc])
-
-        return row.order_by('log')
+        
+        # detect_result 에 log 없을 시 yolo 실행
+        if len(row) == 0:
+            detect.main(url_date, url_loc)
+        else:
+            return row.order_by('log')
 
 
 class graphInfo(generics.ListCreateAPIView):

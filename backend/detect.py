@@ -27,16 +27,18 @@ from utils.general import check_img_size, check_requirements, check_imshow, colo
 from utils.plots import colors, plot_one_box
 from utils.torch_utils import select_device, load_classifier, time_sync
 
+import parsing_log
+
 # calculate fps of input video
-def get_fps(filename):
-    video = cv2.VideoCapture(filename)
-    return video.get(cv2.CAP_PROP_FPS)
+#def get_fps(filename):
+#    video = cv2.VideoCapture(filename)
+#    return video.get(cv2.CAP_PROP_FPS)
 
 @torch.no_grad()
 def run(weights='./best.pt',  # model.pt path(s)
         source='data/',  # file/dir/URL/glob, 0 for webcam
         imgsz=640,  # inference size (pixels)
-        conf_thres=0.7,  # confidence threshold
+        conf_thres=0.75,  # confidence threshold
         iou_thres=0.45,  # NMS IOU threshold
         max_det=1000,  # maximum detections per image
         device='',  # cuda device, i.e. 0 or 0,1,2,3 or cpu
@@ -50,7 +52,7 @@ def run(weights='./best.pt',  # model.pt path(s)
         augment=False,  # augmented inference
         visualize=False,  # visualize features
         update=False,  # update all models
-        project='../video_final/',  # save results to project/name
+        project='./output_video',  # save results to project/name
         name='output',  # save results to project/name
         exist_ok=False,  # existing project/name ok, do not increment
         line_thickness=3,  # bounding box thickness (pixels)
@@ -62,15 +64,14 @@ def run(weights='./best.pt',  # model.pt path(s)
     webcam = source.isnumeric() or source.endswith('.txt') or source.lower().startswith(('rtsp://', 'rtmp://', 'http://', 'https://'))
 
     # check source's fps
-    video_fps = get_fps(source)
+    # video_fps = get_fps(source)
+    video_fps = 30
     print('\ninput_video_fps: ', video_fps, '\n')
-
     # Directories
     save_dir = increment_path(Path(project) / name, exist_ok=exist_ok)  # increment run
    
     (save_dir / 'labels' if save_txt else save_dir).mkdir(parents=True, exist_ok=True)  # make dir
     # print('\n save_dir ', save_dir, '\n')
-
     # Initialize
     set_logging()
     device = select_device(device)
@@ -113,11 +114,6 @@ def run(weights='./best.pt',  # model.pt path(s)
       'helmet': [0],
       'over-two': [0],
     }
-    # db={
-    #   'non-helmet': [],
-    #   'helmet': [],
-    #   'over-two': [],
-    # }
     db = ''
 
     for path, img, im0s, vid_cap in dataset:
@@ -162,10 +158,10 @@ def run(weights='./best.pt',  # model.pt path(s)
                 # Print results
                 for c in det[:, -1].unique():
                     n = (det[:, -1] == c).sum()  # detections per class
-                    s += f"{n} {names[int(c)]}{'s' * (n > 1)}, "  # add to string
+                    s += f"{n} {names[int(c)]}{'s' * (n > 1)}, "  # add to string                   
                     ms = float('{:.3f}'.format(tmp[names[int(c)]][0]/video_fps - int(tmp[names[int(c)]][0]/video_fps)))
                     # db[names[int(c)]].append(time.strftime('%H:%M:%S', time.gmtime(int(tmp[names[int(c)]][0]/video_fps))) + '.' + str(format(int(ms*1000),'03')) + ' ' + datetime.today().strftime('%Y-%m-%d') + ' ' + names[int(c)])
-                    db += str(time.strftime('%H:%M:%S', time.gmtime(int(tmp[names[int(c)]][0]/video_fps))) + '.' + str(format(int(ms*1000),'03')) + ' ' + datetime.today().strftime('%Y-%m-%d') + ' ' + names[int(c)] + '\n')
+                    db += str(time.strftime('%H:%M:%S', time.gmtime(int(tmp[names[int(c)]][0]/video_fps))) + '.' + str(format(int(ms*1000),'03')) + ' ' + names[int(c)] + '\n')
                     tmp[names[int(c)]][0]=frame
 
                 # Write results
@@ -216,10 +212,7 @@ def run(weights='./best.pt',  # model.pt path(s)
                         vid_writer[i] = cv2.VideoWriter(save_path, cv2.VideoWriter_fourcc(*'mp4v'), fps, (w, h))
                     vid_writer[i].write(im0)
 
-    # for name in db: # Nothing in Class Detect 
-        # db[name].append(time.strftime('%H:%M:%S', time.gmtime(round(tmp[name][0]/video_fps))) + ' ' + datetime.today().strftime('%Y-%m-%d') + ' ' + name)
-        # db += str(time.strftime('%H:%M:%S', time.gmtime(round(tmp[name][0]/video_fps))) + ' ' + datetime.today().strftime('%Y-%m-%d') + ' ' + name + '\n')
-
+ 
     if save_txt or save_img:
         s = f"\n{len(list(save_dir.glob('labels/*.txt')))} labels saved to {save_dir / 'labels'}" if save_txt else ''
         # print(f"Results saved to {save_dir}{s}")
@@ -229,51 +222,22 @@ def run(weights='./best.pt',  # model.pt path(s)
     
     #metadata.close()
     # print(f'Done. ({time.time() - t0:.3f}s)')
+    # print(db)
     
     # file for metadata -> read .txt
-    metadata = open('./list/timeline.txt', 'a') # append mode
+    metadata = open('./list/timeline.txt', 'w') # append mode
     metadata.write(str(db))
 
     print(db)
-    # print(db2)
     return db
 
-def parse_opt():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--weights', nargs='+', type=str, default='./best.pt', help='model.pt path(s)')
-    parser.add_argument('--source', type=str, default='./data/test3.mp4', help='file/dir/URL/glob, 0 for webcam')
-    parser.add_argument('--imgsz', '--img', '--img-size', type=int, default=640, help='inference size (pixels)')
-    parser.add_argument('--conf-thres', type=float, default=0.25, help='confidence threshold')
-    parser.add_argument('--iou-thres', type=float, default=0.45, help='NMS IoU threshold')
-    parser.add_argument('--max-det', type=int, default=1000, help='maximum detections per image')
-    parser.add_argument('--device', default='', help='cuda device, i.e. 0 or 0,1,2,3 or cpu')
-    parser.add_argument('--view-img', action='store_true', help='show results')
-    parser.add_argument('--save-txt', action='store_true', help='save results to *.txt')
-    parser.add_argument('--save-conf', action='store_true', help='save confidences in --save-txt labels')
-    parser.add_argument('--save-crop', action='store_true', help='save cropped prediction boxes')
-    parser.add_argument('--nosave', action='store_true', help='do not save images/videos')
-    parser.add_argument('--classes', nargs='+', type=int, help='filter by class: --class 0, or --class 0 2 3')
-    parser.add_argument('--agnostic-nms', action='store_true', help='class-agnostic NMS')
-    parser.add_argument('--augment', action='store_true', help='augmented inference')
-    parser.add_argument('--visualize', action='store_true', help='visualize features')
-    parser.add_argument('--update', action='store_true', help='update all models')
-    parser.add_argument('--project', default='./output_video', help='save results to project/name')
-    parser.add_argument('--name', default='output', help='save results to project/name')
-    parser.add_argument('--exist-ok', action='store_true', help='existing project/name ok, do not increment')
-    parser.add_argument('--line-thickness', default=3, type=int, help='bounding box thickness (pixels)')
-    parser.add_argument('--hide-labels', default=False, action='store_true', help='hide labels')
-    parser.add_argument('--hide-conf', default=False, action='store_true', help='hide confidences')
-    parser.add_argument('--half', action='store_true', help='use FP16 half-precision inference')
-    opt = parser.parse_args()
-    return opt
-
-
-def main(opt):
-    print(colorstr('detect: ') + ', '.join(f'{k}={v}' for k, v in vars(opt).items()))
+def main(url_date, url_loc):
+    print("hello")
+    print(colorstr('detect: ') + ', '.join(f'{k}={v}' for k, v in vars().items()))
     #check_requirements(exclude=('tensorboard', 'thop'))
-    run(**vars(opt))
+    run()
+    parsing_log.main(url_date, url_loc)
 
 
 if __name__ == "__main__":
-    opt = parse_opt()
-    main(opt)
+    main()
