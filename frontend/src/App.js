@@ -6,7 +6,7 @@ import Location from './components/main_page/Location';
 import DetailPage from './components/detail_page/DetailPage';
 import GraphPage from './components/graph_page/GraphPage';
 import Navbar from './components/navbar/Navbar';
-import Statistics from './components/statistics/Statistics';
+import ReferencePage from './components/reference_page/ReferencePage';
 
 function App() {
   return (
@@ -17,7 +17,7 @@ function App() {
           <Route exact path="/" component={Location} />
           <Route exact path="/detail/:loc/:videoId" component={DetailPage} />
           <Route exact path="/graph/:loc/:videoId" component={GraphPage} />
-          <Route exact path="/statistics/:resultId" component={Statistics} />
+          <Route exact path="/reference" component={ReferencePage} />
         </Switch>
       </div>
     </BrowserRouter>

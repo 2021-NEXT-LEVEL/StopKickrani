@@ -2,4 +2,40 @@
     width: 106px;
     height: 80px;
     cursor: pointer;
+    margin-top: 8px;
+}
+
+.system_title {
+    float: left;
+    font-size: 1.7em;
+    font-weight: bolder;
+}
+
+.system_subtitle {
+    position: absolute;
+    left: 145px;
+    margin-top: 60px;
+    font-size: 1em;
+    font-weight: bolder;
+}
+
+.refbtn {
+    position: absolute;
+    right: 50px;
+}
+
+.police {
+    margin-top: 12px;
+}
+
+.policeIcon {
+    width: 35px;
+    height: 18px;
+    cursor: pointer;
+    margin-top: 3px;
+}
+
+.footer {
+    float: bottom;
+    padding-top: 40px;
 }

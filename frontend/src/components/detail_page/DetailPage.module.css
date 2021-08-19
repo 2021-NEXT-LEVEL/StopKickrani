@@ -1,6 +1,7 @@
 .container {
     box-shadow: 4px 4px 6px -1px rgba(160, 160, 160, 0.82);
     text-align: center;
+    padding-top: 10px;
 }
 
 .ButtonPos {

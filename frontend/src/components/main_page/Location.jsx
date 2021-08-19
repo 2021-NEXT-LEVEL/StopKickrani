@@ -7,6 +7,7 @@ import ButtonBase from "@material-ui/core/ButtonBase";
 import Button from '@material-ui/core/Button';
 import RoomIcon from '@material-ui/icons/Room';
 import VideoCallIcon from '@material-ui/icons/VideoCall';
+import LocationData from "./sections/LocationData";
 import { USER_SERVER } from '../../Config';
 
 const useStyles = makeStyles((theme) => ({
@@ -75,25 +76,24 @@ function ComplexGrid(props) {
     for (let i = 0; i < locations.length; i++) {
       result.push(<div className="item">
         <Paper className={classes.paper}>
-          <Grid container spacing={2}>
+          <Grid container spacing={1}>
             <Grid item>
               <ButtonBase className={classes.image}>
                 <img
                   className={classes.img}
                   alt="exit4"
-                  src="/images/logo.png"
+                  src={LocationData[i].img}
                 />
               </ButtonBase>
             </Grid>
             <Grid item xs={12} sm container>
               <Grid item xs container direction="column" spacing={2}>
                 <Grid item xs>
-
                   <Typography gutterBottom variant="subtitle1">
                     <RoomIcon style={{ verticalAlign: 'middle' }} />&nbsp; {locations[i]}
                   </Typography>
                   <Typography variant="body2" gutterBottom>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 서울특별시 중구 필동1가
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {LocationData[i].address}
                   </Typography>
 
                 </Grid>
@@ -107,8 +107,7 @@ function ComplexGrid(props) {
                   <Button
                     variant="outlined"
                     color="default"
-                    startIcon={<VideoCallIcon />
-                    }
+                    startIcon={<VideoCallIcon />}
                     onClick={() => clickViewMore(i)}
                   >
                     View More
@@ -118,10 +117,12 @@ function ComplexGrid(props) {
             </Grid>
           </Grid>
         </Paper>
-      </div>);
+      </div >);
     }
     return result;
   };
+
+
   return (
     <div className={classes.root}>
       {rendering()}

@@ -80,7 +80,11 @@ function DetailPage(props) {
         movePage()
 
         // get video URL
-        fetch(`${USER_SERVER}/video/${loc}/${videoId}`)
+        fetch(`${USER_SERVER}/video/${loc}/${videoId}`, {
+            headers: {
+                'Accept': 'application/json'
+            }
+        })
             .then(response => response.json())
             .then(response => {
                 console.log(response)
