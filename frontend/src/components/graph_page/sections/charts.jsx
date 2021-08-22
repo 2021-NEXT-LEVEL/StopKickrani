@@ -24,9 +24,9 @@ function Charts(props) {
 
 
         response.forEach((item) => {
-          if (item.value == 'non-helmet') {
+          if (item.value === 'non-helmet') {
             numOfNonHelmet += 1
-          } else if (item.value == 'over-two') {
+          } else if (item.value === 'over-two') {
             numOfOverTwo += 1
           }
         })
@@ -38,21 +38,21 @@ function Charts(props) {
       })
 
   }, []);
-  
+
   const sampleData =
-  [
-    {
-      "id": "non-helmet",
-      "color": "hsl(85, 70%, 50%)",
-      "value": count[1]
-    },
-    {
-      "id": "over-two",
-      "color": "hsl(180, 70%, 50%)",
-      "value":  count[0]
-    }
-  ];
-  
+    [
+      {
+        "id": "non-helmet",
+        "color": "hsl(85, 70%, 50%)",
+        "value": count[1]
+      },
+      {
+        "id": "over-two",
+        "color": "hsl(180, 70%, 50%)",
+        "value": count[0]
+      }
+    ];
+
   const commonProperties = {
     width: 550,
     height: 400,
@@ -66,19 +66,19 @@ function Charts(props) {
       left: 80
     }
   };
-  
 
-  return(
+
+  return (
     <div style={styles}>
-    <Bar
-      {...commonProperties}
-      axisBottom={{
-        // using custom function
-        format: d => `${d}`
-      }}
-    />
+      <Bar
+        {...commonProperties}
+        axisBottom={{
+          // using custom function
+          format: d => `${d}`
+        }}
+      />
 
-  </div>
+    </div>
   )
 }
 

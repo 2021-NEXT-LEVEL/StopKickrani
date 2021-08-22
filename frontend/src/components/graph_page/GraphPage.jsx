@@ -19,17 +19,17 @@ function GraphPage(props) {
       marginTop: '10px',
     },
   });
-  
+
   const DrawGraph = () => (
     <div style={styles}>
       {/*<h1>Nivo basic demo</h1>*/}
       <div style={{ height: "450px" }}>
-        <Charts loc={loc} videoId={videoId}/>
+        <Charts loc={loc} videoId={videoId} />
         {/* <ResponsiveBar data={data} keys={["earnings"]} indexBy="quarter" /> */}
       </div>
     </div>
   );
-  
+
 
   const classes = useStyles();
 
@@ -62,9 +62,9 @@ function GraphPage(props) {
 
 
         response.forEach((item) => {
-          if (item.value == 'non-helmet') {
+          if (item.value === 'non-helmet') {
             numOfNonHelmet += 1
-          } else if (item.value == 'over-two') {
+          } else if (item.value === 'over-two') {
             numOfOverTwo += 1
           }
         })

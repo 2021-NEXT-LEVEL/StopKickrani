@@ -2,6 +2,7 @@
     box-shadow: 4px 4px 6px -1px rgba(160, 160, 160, 0.82);
     text-align: center;
     padding-top: 10px;
+    overflow: hidden;
 }
 
 .ButtonPos {
@@ -10,9 +11,14 @@
     float: right;
 }
 
-font {
+.timeLog {
     color: #00739d;
     cursor: pointer;
+
+}
+
+.table {
+    height: 35vw;
 }
 
 b {
@@ -24,22 +30,26 @@ li {
 }
 
 .iframeBox {
-    position: relative;
+    position: absolute;
     width: 100%;
     padding-bottom: 56.25%;
     padding-top: 30px;
     height: 0;
 }
 
-.iframeBox iframe {
+.reactplayer {
     position: absolute;
-    width: 100%;
-    height: 100%;
+    top: 262px;
 }
 
 .result {
     padding-top: 30px;
     width: 700px;
+}
+
+.logBox {
+    width: 25%;
+    overflow: auto;
 }
 
 .log_font {

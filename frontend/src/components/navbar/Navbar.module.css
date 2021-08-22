@@ -35,7 +35,8 @@
     margin-top: 3px;
 }
 
-.footer {
-    float: bottom;
-    padding-top: 40px;
+.drawerContainer2 {
+    position: absolute;
+    bottom: 0;
+
 }

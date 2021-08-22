@@ -59,7 +59,7 @@ function ItemList(props) {
   const handleOpen = (imgTitle) => {
     setOpen(true);
     itemData.map((item) => {
-      if (item.title == imgTitle) {
+      if (item.title === imgTitle) {
         setImageInfo(item)
       }
     })

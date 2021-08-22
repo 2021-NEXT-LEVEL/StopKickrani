@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styles from './DetailPage.module.css';
 import TimePicker from './sections/TimePicker';
+import ReactPlayer from 'react-player'
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core';
 import { createTheme, withStyles, makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -18,12 +19,50 @@ function DetailPage(props) {
     const defaultVideoId = props.match.params.videoId;
     const defaultLoc = props.match.params.loc;
 
+    const player = useRef(null);
+
+    const [playing, setPlaying] = useState(true);
+    const [seeking, setSeeking] = useState(false);
+    const [played, setPlayed] = useState(0);
+    const [start, setStart] = useState(false);
+
     const [videoId, setVideoId] = useState(defaultVideoId);
     const [loc, setLoc] = useState(defaultLoc);
     const [videoURL, setVideoURL] = useState();
-    const [videoUniqueURL, setVideoUniqueURL] = useState();
     const [infos, setInfos] = useState([]); // db에서 받아온 log, value
-    const [timeState, setTimeState] = useState(0.0);
+    const [show, setShow] = useState(false);
+    const [second, setSecond] = useState();
+
+    const ColorButton = withStyles((theme) => ({
+        root: {
+            marginBottom: '10px',
+            color: theme.palette.getContrastText(purple[500]),
+            backgroundColor: '#7558CA',
+            '&:hover': {
+                backgroundColor: '#513d8d',
+            },
+        },
+    }))(Button);
+
+    const handleSeekMouseDown = e => {
+        setSeeking(true);
+    }
+
+    const handleSeekChange = e => {
+        setPlayed(parseFloat(e.target.innerHTML));
+    }
+
+    const handleSeekMouseUp = e => {
+        setSeeking(false);
+        player.current.seekTo(parseFloat(timeToSec(e.target.innerHTML)));
+    }
+
+    const handleProgress = state => {
+        if (!seeking) {
+            setPlayed(state.played);
+        }
+        setSecond(parseFloat(state.playedSeconds).toFixed(3))
+    }
 
     const convertDate2Id = (dateObject) => {
         const year = dateObject.getFullYear() + "";
@@ -45,36 +84,28 @@ function DetailPage(props) {
         return { url, logs };
     }
 
-    const createLogData = (log, value) => {
-        return (videoId.substring(0, 4) + '/' + videoId.substring(4, 6) + '/' + videoId.substring(6, 8) + ' ' + log + ' ' + value);
-    }
-
     const moveToGraph = () => {
         props.history.push('/graph/' + loc + '/' + videoId)
     }
 
-    const rows = [createData(videoURL, videoId)];
-
-    const ColorButton = withStyles((theme) => ({
-        root: {
-            marginBottom: '10px',
-            color: theme.palette.getContrastText(purple[500]),
-            backgroundColor: '#7558CA',
-            '&:hover': {
-                backgroundColor: '#513d8d',
-            },
-        },
-    }))(Button);
-
-    const setStartTime = (time) => {
-        const hour = parseInt(time.substring(0, 2))
-        const minutes = parseInt(time.substring(3, 5))
-        const seconds = parseInt(time.substring(6, 8))
-        const result = hour * 3600 + minutes * 60 + seconds
-        setTimeState(result)
-        console.log(result)
+    const setLogInfo = (str) => {
+        if (str.length === 8) {
+            str += '.000000'
+        }
+        return str.substring(0, 12)
     }
 
+    const timeToSec = (time) => {
+        let time_ = setLogInfo(time)
+        const hour = parseInt(time_.substring(0, 2))
+        const minutes = parseInt(time_.substring(3, 5))
+        const seconds = parseInt(time_.substring(6, 8))
+        const milliseconds = parseInt(time_.substring(9, 12))
+        const result = hour * 3600 + minutes * 60 + seconds + milliseconds * 0.001
+        return result
+    }
+
+    const rows = [createData(videoURL, videoId)];
 
     useEffect(() => {
         movePage()
@@ -90,7 +121,6 @@ function DetailPage(props) {
                 console.log(response)
                 let urls = response[0].url.split('watch?v=')
                 setVideoURL(YOUTUBE_URL + '/' + urls[1] + '?autoplay=1&modestbranding=1&rel=0&autohide=1&rel=0&controls=0&iv_load_policy=3&disablekb=1')
-                setVideoUniqueURL(urls[1])
             }
             )
             .catch((err) => {
@@ -119,48 +149,57 @@ function DetailPage(props) {
             <div className={styles.container}>
                 <TimePicker getSelectedDate={getSelectedDate} datePath={videoId} />
                 <TableContainer component={Paper}>
-                    <Table className={classes.table} aria-label="video table">
-                        <TableHead>
-                            <TableRow>
-                                <TableCell><b>Video</b></TableCell>
-                                <TableCell><b>Logs</b></TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {rows.map((row) => (
-                                <TableRow key={row.url}>
-                                    <TableCell component="th" scope="row">
-                                        <div className="iframeBox">
-                                            {videoURL &&
-
-                                                <iframe
-                                                    id="player"
-                                                    width="793px"
-                                                    height="446px"
-                                                    src={`${videoURL}&start=${timeState}`}
-                                                    frameBorder="0"
-                                                    allow="autoplay; encrypted-media; gyroscope;"
-                                                    allowFullScreen
-                                                    scrolling="no"
-                                                />
-                                            }
-                                        </div>
-                                    </TableCell>
-                                    <TableCell>
-                                        {infos.map((data) =>
-                                            <li key={data[0]} onClick={() => setStartTime(data[0])}>
-                                                <div className={styles.log_font}>
-                                                    {videoId.substring(0, 4) + '/' + videoId.substring(4, 6) + '/' + videoId.substring(6, 8) + ' '}
-                                                    &emsp;&emsp;<font>{data[0]}</font>
-                                                    &emsp;&emsp;{data[1]}
-                                                </div>
-                                            </li>
-                                        )}
-                                    </TableCell>
+                    <div className={styles.table}>
+                        <Table stickyHeader className={classes.table} aria-label="video table">
+                            <TableHead>
+                                <TableRow className={styles.tableRow}>
+                                    <TableCell><b>Video</b></TableCell>
+                                    <TableCell><b>Logs</b></TableCell>
                                 </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
+                            </TableHead>
+                            <TableBody>
+                                {rows.map((row) => (
+                                    <TableRow key={row.url}>
+                                        <TableCell component="th" scope="row">
+                                            <div className="iframeBox">
+                                                {videoURL &&
+                                                    <ReactPlayer
+                                                        className={styles.reactplayer}
+                                                        width="52vw"
+                                                        height="calc(52vw * 0.5625)"
+                                                        ref={player}
+                                                        playing={playing}
+                                                        url={videoURL}
+                                                        controls={false}
+                                                        progressInterval
+                                                        onProgress={handleProgress}
+                                                    />
+                                                }
+                                            </div>
+                                        </TableCell>
+                                        <TableCell className={styles.logBox}>
+                                            {played > 0 && infos.map((data) =>
+                                                (parseFloat(second) >= parseFloat(timeToSec(data[0]))) && <li key={data[0]}>
+                                                    <div className={styles.log_font}>
+                                                        &emsp;&emsp;
+                                                        <font
+                                                            className={styles.timeLog}
+                                                            onMouseDown={handleSeekMouseDown}
+                                                            onChange={handleSeekChange}
+                                                            onMouseUp={handleSeekMouseUp}
+                                                        >{setLogInfo(data[0])}
+                                                        </font>
+                                                        <font>&emsp;&emsp;{data[1]}</font>
+                                                    </div>
+                                                </li>
+
+                                            )}
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </div>
                 </TableContainer>
             </div>
             <div className={styles.ButtonPos}>

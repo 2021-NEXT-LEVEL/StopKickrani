@@ -64,12 +64,6 @@ const useStyles = makeStyles((theme) => ({
   drawerContainer1: {     // 기록 조회 안 세부 category
     overflow: 'auto',
   },
-  drawerContainer2: {
-    paddingTop: 50,
-    paddingLeft: 10,
-    alignContent: 'center',
-    alignItems: 'center',
-  },
   content: {
     flexGrow: 1,
     padding: theme.spacing(7),  // drawer 안 내용 top padding
@@ -212,7 +206,7 @@ function ClippedDrawer(props) {
             <ListItemText primary={"Reference"} style={{ color: '#c0c1c5' }} />
           </ListItem>
         </List>
-        <div className={classes.drawerContainer2}>
+        <div className={styles.drawerContainer2}>
           <p className={styles.footer} style={{ color: '#c0c1c5' }}>
             <Media />
             <Text size="xsmall">&nbsp;&nbsp;©Copyright 2021 NEXT_LEVEL</Text>
