@@ -18,9 +18,9 @@ const useStyles = makeStyles((theme) => ({
   },
   imageList: {
     paddingLeft: 50,
-    paddingTop: 20,
-    width: 1000,
-    height: 400,
+    paddingTop: 40,
+    width: 1050,
+    height: 600,
   },
   image: {
     width: 160,
