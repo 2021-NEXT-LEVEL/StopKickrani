@@ -80,8 +80,8 @@ function GraphPage(props) {
   return (
     <>
       <div className={classes.graphDate}>
-        <p style={{ fontSize: '30px', fontWeight: 'bold', color: '#7a57d1' }}>
-          {videoId}</p>
+        <p style={{ fontSize: '25px', fontWeight: 'bold', color: '#000000' }}>
+        {parseInt(videoId/10000)}년 {parseInt((videoId%10000)/100)}월 {videoId%100}일</p>
       </div>
       <div>
         <DrawGraph />
@@ -91,7 +91,6 @@ function GraphPage(props) {
           DETAIL
         </ColorButton>
       </div>
-      non-helmet 수 : {count[1]}<p />over-two 수 : {count[0]}
     </>
   )
 }

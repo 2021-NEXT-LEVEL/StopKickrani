@@ -14,6 +14,7 @@ function Charts(props) {
     fontFamily: "sans-serif",
     fontSize: "14px",
     textAlign: "center"
+    //font: "",
   };
   useEffect(() => {
     // get number of (log, value)
