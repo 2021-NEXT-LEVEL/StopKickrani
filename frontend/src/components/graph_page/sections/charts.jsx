@@ -12,17 +12,26 @@ function Charts(props) {
 
   const styles = {
     fontFamily: "sans-serif",
-    fontSize: "14px",
     textAlign: "center"
-    //font: "",
   };
+
+  const theme = {
+    axis: {
+      ticks: {
+        text: {
+          fontSize: 20,
+          fill: "gray"
+        }
+      }
+    },
+  };
+
   useEffect(() => {
     // get number of (log, value)
     fetch(`${USER_SERVER}/graph/${loc}/${videoId}`)
       .then(response => response.json())
       .then(response => {
         console.log(response)
-
 
         response.forEach((item) => {
           if (item.value === 'non-helmet') {
@@ -40,45 +49,53 @@ function Charts(props) {
 
   }, []);
 
-  const sampleData =
+  const Data =
     [
       {
         "id": "non-helmet",
-        "color": "hsl(85, 70%, 50%)",
+        "color": "hsl(55, 70%, 50%)",
         "value": count[1]
       },
       {
         "id": "over-two",
-        "color": "hsl(180, 70%, 50%)",
+        "color": "hsl(313, 70%, 50%)",
         "value": count[0]
       }
     ];
 
   const commonProperties = {
-    width: 550,
-    height: 400,
-    data: sampleData,
+    width: 1260,
+    height: 500,
+    data: Data,
     keys: ["value"],
     indexBy: "id",
+    minValue: 0,
+    maxValue: Math.max(count[0],count[1]) + 5, // max of y value
+    padding: 0.65, // graph width (0:wide~1:narrow)
+    labelTextColor: {from: 'color', fontSize: 20, modifiers: [ [ 'darker', 3 ] ]},
     margin: {
       top: 10,
-      right: 5,
-      bottom: 60,
-      left: 80
+      right: 50,
+      bottom: 50,
+      left: 50
     }
   };
-
 
   return (
     <div style={styles}>
       <Bar
         {...commonProperties}
-        axisBottom={{
-          // using custom function
-          format: d => `${d}`
+        colors={{ scheme: 'nivo' }}
+        colorBy="indexValue"
+        axisBottom= {{
+          tickSize: 15,
+          tickPadding: 5,
+          tickRotation: 0,
+          legendPosition: 'middle',
+          legendOffset: 32
         }}
+        theme={theme}
       />
-
     </div>
   )
 }

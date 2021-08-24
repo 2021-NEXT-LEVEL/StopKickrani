@@ -5,10 +5,8 @@ import Button from '@material-ui/core/Button';
 import { purple } from '@material-ui/core/colors';
 import Charts from "./sections/charts";
 import { USER_SERVER } from '../../Config';
-//import data from '../../public/detect_log/data.json';
 
 function GraphPage(props) {
-
   const useStyles = makeStyles({
     table: {
       minWidth: 650,
@@ -16,20 +14,17 @@ function GraphPage(props) {
     graphDate: {
       display: 'flex',
       justifyContent: 'center',
-      marginTop: '10px',
+      marginTop: '20px',
     },
   });
 
   const DrawGraph = () => (
     <div style={styles}>
-      {/*<h1>Nivo basic demo</h1>*/}
       <div style={{ height: "450px" }}>
         <Charts loc={loc} videoId={videoId} />
-        {/* <ResponsiveBar data={data} keys={["earnings"]} indexBy="quarter" /> */}
       </div>
     </div>
   );
-
 
   const classes = useStyles();
 
@@ -80,7 +75,7 @@ function GraphPage(props) {
   return (
     <>
       <div className={classes.graphDate}>
-        <p style={{ fontSize: '25px', fontWeight: 'bold', color: '#000000' }}>
+        <p style={{ fontSize: '25px', fontWeight: 'bold', color: '#7a57d1' }}>
         {parseInt(videoId/10000)}년 {parseInt((videoId%10000)/100)}월 {videoId%100}일</p>
       </div>
       <div>
