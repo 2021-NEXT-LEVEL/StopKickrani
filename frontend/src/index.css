@@ -12,3 +12,13 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+@font-face { 
+  font-family: 'nanum'; 
+  src: url(./font/NanumSquare.ttf) 
+  format('truetype'); }
+
+@font-face { 
+  font-family: 'jalnan'; 
+  src: url(./font/Jalnan.ttf) 
+  format('truetype'); }

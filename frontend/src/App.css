@@ -37,3 +37,8 @@
     transform: rotate(360deg);
   }
 }
+
+@font-face {
+  font-family: "nanum"; 
+  src: url("./font/NanumSquare.ttf");
+}

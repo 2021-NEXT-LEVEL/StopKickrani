@@ -22,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
     margin: "20px 10px auto",
     maxWidth: 500,
     color: "black",
+    fontFamily: 'nanum'
   },
   image: {
     width: 128,
@@ -32,6 +33,9 @@ const useStyles = makeStyles((theme) => ({
     display: "block",
     maxWidth: "100%",
     maxHeight: "100%"
+  },
+  listItemText:{
+    fontFamily:'nanum',
   }
 }));
 
@@ -75,7 +79,7 @@ function ComplexGrid(props) {
     const result = [];
     for (let i = 0; i < locations.length; i++) {
       result.push(<div className="item">
-        <Paper className={classes.paper}>
+        <Paper  className={classes.paper}>
           <Grid container spacing={1}>
             <Grid item>
               <ButtonBase className={classes.image}>
@@ -89,7 +93,7 @@ function ComplexGrid(props) {
             <Grid item xs={12} sm container>
               <Grid item xs container direction="column" spacing={2}>
                 <Grid item xs>
-                  <Typography gutterBottom variant="subtitle1">
+                  <Typography gutterBottom variant="subtitle1" >
                     <RoomIcon style={{ verticalAlign: 'middle' }} />&nbsp; {locations[i]}
                   </Typography>
                   <Typography variant="body2" gutterBottom>
@@ -124,10 +128,9 @@ function ComplexGrid(props) {
 
 
   return (
-    <div className={classes.root}>
-      {rendering()}
-    </div>
-
+      <div className={classes.root}>
+        {rendering()}
+      </div>
   );
 }
 

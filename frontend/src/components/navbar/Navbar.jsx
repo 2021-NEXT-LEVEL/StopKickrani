@@ -70,6 +70,9 @@ const useStyles = makeStyles((theme) => ({
   },
   extendedIcon: {
     marginRight: theme.spacing(1)
+  },
+  listItemText:{
+    fontFamily:'nanum',
   }
 }));
 
@@ -135,7 +138,7 @@ function ClippedDrawer(props) {
         <Toolbar />
         <List component="nav" aria-label="main mailbox folders">
           <List>
-            <Typography variant="h6" style={{ color: '#f8f8f8' }} noWrap >
+            <Typography variant="h6" style={{ color: '#f8f8f8', fontFamily: 'nanum' }} noWrap >
               &nbsp;&nbsp;&nbsp;기록 조회
             </Typography>
           </List>
@@ -146,7 +149,7 @@ function ClippedDrawer(props) {
             onClick={(event) => handleListItemClick(event, 7)}
           >
             <BsCollectionFill style={{ color: '#c0c1c5' }} />&nbsp;&nbsp;
-            <ListItemText primary={"위치 별 기록 조회"} style={{ color: '#c0c1c5' }} />
+            <ListItemText classes={{primary:classes.listItemText}} primary={"위치 별 기록 조회"} style={{ color: '#c0c1c5' }} />
           </ListItem>
           <ListItem
             button key={0}
@@ -154,7 +157,7 @@ function ClippedDrawer(props) {
             onClick={(event) => handleListSubItemClick(event, 0)}
           >&nbsp;
             <BsGeoAlt style={{ color: '#c0c1c5' }} />&nbsp;&nbsp;&nbsp;
-            <ListItemText primary="동국대학교 팔정도" style={{ color: '#c0c1c5' }} />
+            <ListItemText classes={{primary:classes.listItemText}} primary="동국대학교 팔정도" style={{ color: '#c0c1c5' }} />
           </ListItem>
           <ListItem
             button key={1}
@@ -162,7 +165,7 @@ function ClippedDrawer(props) {
             onClick={(event) => handleListSubItemClick(event, 1)}
           >&nbsp;
             <BsGeoAlt style={{ color: '#c0c1c5' }} />&nbsp;&nbsp;&nbsp;
-            <ListItemText primary="동국대학교 상록원" style={{ color: '#c0c1c5' }} />
+            <ListItemText classes={{primary:classes.listItemText}} primary="동국대학교 상록원" style={{ color: '#c0c1c5' }} />
           </ListItem>
           <ListItem
             button key={2}
@@ -170,7 +173,7 @@ function ClippedDrawer(props) {
             onClick={(event) => handleListSubItemClick(event, 2)}
           >&nbsp;
             <BsGeoAlt style={{ color: '#c0c1c5' }} />&nbsp;&nbsp;&nbsp;
-            <ListItemText primary="동국대학교 신공학관 9층" style={{ color: '#c0c1c5' }} />
+            <ListItemText classes={{primary:classes.listItemText}} primary="동국대학교 신공학관 9층" style={{ color: '#c0c1c5' }} />
           </ListItem>
           <ListItem
             button key={3}
@@ -178,7 +181,7 @@ function ClippedDrawer(props) {
             onClick={(event) => handleListSubItemClick(event, 3)}
           >&nbsp;
             <BsGeoAlt style={{ color: '#c0c1c5' }} />&nbsp;&nbsp;&nbsp;
-            <ListItemText primary="동국대학교 본관 앞" style={{ color: '#c0c1c5' }} />
+            <ListItemText classes={{primary:classes.listItemText}} primary="동국대학교 본관 앞" style={{ color: '#c0c1c5' }} />
           </ListItem>
           <ListItem
             button key={4}
@@ -186,7 +189,7 @@ function ClippedDrawer(props) {
             onClick={(event) => handleListSubItemClick(event, 4)}
           >&nbsp;
             <BsGeoAlt style={{ color: '#c0c1c5' }} />&nbsp;&nbsp;&nbsp;
-            <ListItemText primary="동국대학교 만해광장" style={{ color: '#c0c1c5' }} />
+            <ListItemText classes={{primary:classes.listItemText}} primary="동국대학교 만해광장" style={{ color: '#c0c1c5' }} />
           </ListItem>
           <ListItem
             button key={5}
@@ -194,7 +197,7 @@ function ClippedDrawer(props) {
             onClick={(event) => handleListSubItemClick(event, 5)}
           >&nbsp;
             <BsGeoAlt style={{ color: '#c0c1c5' }} />&nbsp;&nbsp;&nbsp;
-            <ListItemText primary="동국대학교 혜화관" style={{ color: '#c0c1c5' }} />
+            <ListItemText classes={{primary:classes.listItemText}} primary="동국대학교 혜화관" style={{ color: '#c0c1c5' }} />
           </ListItem>
           <Divider />
           <ListItem
@@ -203,7 +206,7 @@ function ClippedDrawer(props) {
             onClick={(event) => handleListReferenceClick(event, 6)}
           >
             <BsCollectionFill style={{ color: '#c0c1c5' }} />&nbsp;&nbsp;
-            <ListItemText primary={"Reference"} style={{ color: '#c0c1c5' }} />
+            <ListItemText classes={{primary:classes.listItemText}} primary={"Reference"} style={{ color: '#c0c1c5' }} />
           </ListItem>
         </List>
         <div className={styles.drawerContainer2}>
