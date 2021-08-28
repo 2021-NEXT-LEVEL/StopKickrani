@@ -165,8 +165,8 @@ function DetailPage(props) {
                                                 {videoURL &&
                                                     <ReactPlayer
                                                         className={styles.reactplayer}
-                                                        width="52vw"
-                                                        height="calc(52vw * 0.5625)"
+                                                        width="44vw"
+                                                        height="calc(44vw * 0.5625)"
                                                         ref={player}
                                                         playing={playing}
                                                         url={videoURL}
@@ -181,7 +181,6 @@ function DetailPage(props) {
                                             {played > 0 && infos.map((data) =>
                                                 (parseFloat(second) >= parseFloat(timeToSec(data[0]))) && <li key={data[0]}>
                                                     <div className={styles.log_font}>
-                                                        &emsp;&emsp;
                                                         <font
                                                             className={styles.timeLog}
                                                             onMouseDown={handleSeekMouseDown}

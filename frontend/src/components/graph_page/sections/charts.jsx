@@ -70,7 +70,7 @@ function Charts(props) {
     keys: ["value"],
     indexBy: "id",
     minValue: 0,
-    maxValue: Math.max(count[0],count[1]) + 5, // max of y value
+    maxValue: Math.max(count[0],count[1]) + 10, // max of y value
     padding: 0.65, // graph width (0:wide~1:narrow)
     labelTextColor: {from: 'color', fontSize: 20, modifiers: [ [ 'darker', 3 ] ]},
     margin: {

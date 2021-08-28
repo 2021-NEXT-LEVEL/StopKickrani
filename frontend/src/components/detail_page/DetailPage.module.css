@@ -14,11 +14,10 @@
 .timeLog {
     color: #00739d;
     cursor: pointer;
-
 }
 
 .table {
-    height: 35vw;
+    height: 30.5vw;
 }
 
 b {
@@ -39,6 +38,7 @@ li {
 
 .reactplayer {
     position: absolute;
+    margin-left: 90px;
     top: 262px;
 }
 
