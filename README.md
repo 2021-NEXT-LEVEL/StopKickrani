@@ -1,4 +1,4 @@
-# 🚴🏻‍♂️StopKickrani : 2021 Value Up Contest Entry
+# 🚴🏻‍♂️StopKickrani
 
 
 *'StopKickrani🚴' is a Electric kickboard law violation detection system.*
